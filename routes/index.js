@@ -25,7 +25,7 @@ router.get('/secretpanel', function(req, res, next) {
       
       if (err) throw err;
       
-      res.render('secretpanel', { title: 'Seeeecret', gusers:users });
+      res.render('secretpanel', { title: 'Seeeecret', gusers:users, code:me.code});
       
   });
       
@@ -52,6 +52,12 @@ router.get('/clearcode', function(req, res, next) {
 });
 
 router.post("/setcode", function(req, res, next) {
+    
+    CODE.findOneAndRemove({name:"admin"}, function(err, me) {
+      
+      if (err) throw err;
+      
+  });
     
   var nCODE = new CODE ({
       
