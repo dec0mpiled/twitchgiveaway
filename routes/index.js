@@ -56,11 +56,17 @@ router.get('/secretpanel', function(req, res, next) {
 
 router.get('/clearcode', function(req, res, next) {
   
-  CODE.findOneAndRemove({name:"admin"}, function(err, me) {
-      
-      if (err) throw err;
-      
-  });
+    CODE.remove({}, function(err, dead) {
+        
+        if (err) throw err;
+        
+    });
+  
+    ID.remove({}, function(err, dead) {
+        
+        if (err) throw err;
+        
+    });
   
   res.redirect("/");
   
