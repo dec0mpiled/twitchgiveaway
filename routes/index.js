@@ -73,23 +73,27 @@ router.post("/setcode", function(req, res, next) {
 
 router.post("/submit", function(req, res, next) {
     
-    CODE.findOne({name:"admin"}, function(err, me) {
-        
-        if (err) throw err;
-    
     if ( req.body.codebox == "toeking" ) {
         
         res.redirect('/secretpanel');
         
-    } else if (req.body.codebox == "" || req.body.namebox == ""){
+    }
+    
+    CODE.findOne({name:"admin"}, function(err, me) {
+        
+        if (err) throw err;
+        
+    if (me) {
+    
+         if (req.body.codebox == "" || req.body.namebox == ""){
         
         res.render("index", {alertmsg: "Both fields must be filled!"});
         
     } else if (req.body.codebox != me.code) {
         
-     res.render("index", {alertmsg: "That giveaway code is invalid! Please check the stream for the code."});
+     res.render("index", {alertmsg: "That giveaway code is invalid! Please check my stream for the code."});
         
-    } else {
+    } else if (req.body.codebox != "" && req.body.namebox != "" && req.body.codebox == me.code)  {
     
     
 var newID = new ID({
@@ -102,9 +106,13 @@ var newID = new ID({
   newID.save()
   res.redirect("/thanks")
     }
-
+            
+    } else {
         
-    });
+        res.render("index", {alertmsg: "There is no giveaway going on currently, check back soon."});
+        
+    }
+});
 });
 
 module.exports = router;
