@@ -14,7 +14,41 @@ router.get('/thanks', function(req, res, next) {
 });
 
 router.get('/secretpanel', function(req, res, next) {
-  res.render('secretpanel', { title: 'Seeeecret' });
+    
+    CODE.findOne({name:"admin"}, function(err, me) {
+        
+        if (err) throw err;
+        
+        if (me) {
+    
+  ID.find({code:me.code}, function(err, users) {
+      
+      if (err) throw err;
+      
+      res.render('secretpanel', { title: 'Seeeecret', gusers:users });
+      
+  });
+      
+  } else {
+      
+  res.render('secretpanel', { title: 'Seeeecret'});
+  
+  };
+  
+
+});
+});
+
+router.get('/clearcode', function(req, res, next) {
+  
+  CODE.findOneAndRemove({name:"admin"}, function(err, me) {
+      
+      if (err) throw err;
+      
+  });
+  
+  res.redirect("/");
+  
 });
 
 router.post("/setcode", function(req, res, next) {
