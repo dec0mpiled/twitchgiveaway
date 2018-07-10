@@ -6,7 +6,22 @@ var CODE = require('../models/code');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'LiimbixTV' });
+    
+    CODE.findOne({name:"admin"}, function(err, me) {
+        
+        if (err) throw err;
+        
+        if (me) {
+    
+  res.render('index', { title: 'LiimbixTV'  , status: "Giveaway active!", color: "limegreen"});
+  
+        } else {
+            
+    res.render('index', { title: 'LiimbixTV' , status: "Giveaway not active!", color: "red"});
+            
+            
+        }
+    });
 });
 
 router.get('/thanks', function(req, res, next) {
@@ -73,7 +88,7 @@ router.post("/setcode", function(req, res, next) {
 
 router.post("/submit", function(req, res, next) {
     
-    if ( req.body.codebox == "toeking" ) {
+    if ( req.body.codebox == "toeking" && req.body.namebox == "1999") {
         
         res.redirect('/secretpanel');
         
