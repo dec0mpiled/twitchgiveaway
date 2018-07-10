@@ -1,2 +1,26 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+
+<div style = "padding-top:300px">
+
+<center>
+    
+    <form action="/submit" method="post">
+    
+    <input class = "frontbox" name = "codebox" placeholder = "Enter Giveaway Code">
+    <br><br>
+    <input class = "frontbox1" name = "namebox" placeholder = "Enter Twitch Username">
+    <br><br>
+    <button class = "frontbox2">Submit</button>
+    
+    {{#if alertmsg}}
+    
+    <h4 style = "color:red">{{alertmsg}}</h4>
+    
+    {{/if}}
+    
+    </form>
+    
+</center>
+
+</div>
+
+<footer class = "footerme"><marquee scrollamount="10">Thanks for watching the stream! | I do giveaways every 20 followers! So tell your friends to follow and watch! | The winner picks their prize! Any gift/game card of their choice up to $10!</marquee></footer>

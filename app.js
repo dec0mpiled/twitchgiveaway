@@ -22,6 +22,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://dec0mpiled:welcometor4ge@ds018268.mlab.com:18268/liimbixtwitch', { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("SUCCESS: Connected to TwitchLiimbix!");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
