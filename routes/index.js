@@ -79,6 +79,18 @@ router.post("/submit", function(req, res, next) {
         
     }
     
+    ID.findOne({username:req.body.namebox}, function(err, gid) {
+        
+        if (err) throw err;
+        
+        if (gid) {
+            
+             res.render("index", {alertmsg: "That user has already entered once! Please only enter once to make it fair for others :)"});
+            
+        } else {
+        
+            
+    
     CODE.findOne({name:"admin"}, function(err, me) {
         
         if (err) throw err;
@@ -112,6 +124,8 @@ var newID = new ID({
         res.render("index", {alertmsg: "There is no giveaway going on currently, check back soon."});
         
     }
+});
+};
 });
 });
 
